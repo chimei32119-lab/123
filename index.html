@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>佳里奇美醫院 醫療服務組 - 智慧親切的臨櫃服務</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter & Noto Sans TC -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Tailwind Custom Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        medical: {
+                            50: '#f0fdfa',
+                            100: '#ccfbf1',
+                            200: '#99f6e4',
+                            500: '#14b8a6',
+                            600: '#0d9488',
+                            700: '#0f766e',
+                            800: '#115e59',
+                        },
+                        skyMed: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Noto Sans TC', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: #f8fafc;
+            color: #334155;
+        }
+        .medical-gradient {
+            background: linear-gradient(135deg, #e0f2fe 0%, #ccfbf1 50%, #ffffff 100%);
+        }
+        .card-shadow {
+            box-shadow: 0 10px 25px -5px rgba(20, 184, 166, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.03);
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(204, 251, 241, 0.6);
+        }
+        /* Hide scrollbar for clean UI */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <!-- Top Alert Banner -->
+    <div class="bg-gradient-to-r from-teal-600 to-sky-600 text-white text-xs md:text-sm py-2 px-4 text-center font-medium flex items-center justify-center space-x-2">
+        <span class="bg-white/20 px-2 py-0.5 rounded-full text-xs">溫馨提示</span>
+        <span>未帶健保卡就醫者，可於 7 日內憑繳費收據與健保卡臨櫃辦理退費。</span>
+    </div>
+
+    <!-- Navigation Header -->
+    <header class="sticky top-0 z-50 glass-panel shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Brand Logo -->
+                <div class="flex items-center space-x-3">
+                    <div class="w-11 h-11 rounded-2xl bg-teal-500 text-white flex items-center justify-center shadow-md shadow-teal-500/30">
+                        <i class="fa-solid fa-hospital-user text-xl"></i>
+                    </div>
+                    <div>
+                        <span class="text-xl font-bold bg-gradient-to-r from-teal-700 to-sky-700 bg-clip-text text-transparent block">
+                            佳里奇美醫院
+                        </span>
+                        <span class="text-xs text-slate-500 font-medium">醫療服務組（批價 / 掛號 / 病歷）</span>
+                    </div>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <nav class="hidden md:flex items-center space-x-1 lg:space-x-2 font-medium text-slate-600 text-sm">
+                    <a href="#services" class="px-3 py-2 rounded-xl hover:text-teal-600 hover:bg-teal-50 transition-colors">服務項目</a>
+                    <a href="#doc-checker" class="px-3 py-2 rounded-xl hover:text-teal-600 hover:bg-teal-50 transition-colors">證件準備小幫手</a>
+                    <a href="#booking" class="px-3 py-2 rounded-xl hover:text-teal-600 hover:bg-teal-50 transition-colors">線上預約諮詢</a>
+                    <a href="#live-queue" class="px-3 py-2 rounded-xl hover:text-teal-600 hover:bg-teal-50 transition-colors">臨櫃叫號狀態</a>
+                    <a href="#payment" class="px-3 py-2 rounded-xl hover:text-teal-600 hover:bg-teal-50 transition-colors">多元支付</a>
+                    <a href="#faq" class="px-3 py-2 rounded-xl hover:text-teal-600 hover:bg-teal-50 transition-colors">常見問題</a>
+                </nav>
+
+                <!-- Action Button -->
+                <div class="flex items-center space-x-3">
+                    <a href="#live-queue" class="hidden sm:inline-flex items-center space-x-2 px-4 py-2.5 rounded-xl bg-teal-500 hover:bg-teal-600 text-white font-medium text-sm transition-all shadow-lg shadow-teal-500/25">
+                        <i class="fa-solid fa-bell text-xs animate-pulse"></i>
+                        <span>即時叫號進度</span>
+                    </a>
+                    <button id="mobile-menu-btn" class="md:hidden p-2 rounded-xl hover:bg-slate-100 text-slate-600">
+                        <i class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Nav -->
+        <div id="mobile-menu" class="hidden md:hidden border-t border-teal-100 bg-white/95 px-4 pt-2 pb-4 space-y-1 text-sm font-medium">
+            <a href="#services" class="block px-3 py-2 rounded-lg hover:bg-teal-50 text-slate-700">服務項目</a>
+            <a href="#doc-checker" class="block px-3 py-2 rounded-lg hover:bg-teal-50 text-slate-700">證件準備小幫手</a>
+            <a href="#booking" class="block px-3 py-2 rounded-lg hover:bg-teal-50 text-slate-700">線上預約諮詢</a>
+            <a href="#live-queue" class="block px-3 py-2 rounded-lg hover:bg-teal-50 text-slate-700">臨櫃叫號狀態</a>
+            <a href="#payment" class="block px-3 py-2 rounded-lg hover:bg-teal-50 text-slate-700">多元支付</a>
+            <a href="#faq" class="block px-3 py-2 rounded-lg hover:bg-teal-50 text-slate-700">常見問題</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="medical-gradient py-12 lg:py-20 relative overflow-hidden">
+        <!-- Floating decorative blobs -->
+        <div class="absolute -top-12 -left-12 w-64 h-64 bg-teal-200/40 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute bottom-0 right-0 w-96 h-96 bg-sky-200/40 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <!-- Hero Left Content -->
+                <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                    <div class="inline-flex items-center space-x-2 px-3 py-1.5 rounded-full bg-white/80 border border-teal-200 text-teal-700 text-xs sm:text-sm font-medium shadow-sm">
+                        <i class="fa-regular fa-face-smile text-teal-500"></i>
+                        <span>親切 • 高效 • 透明 • 智慧服務</span>
+                    </div>
+                    <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-800 leading-tight">
+                        讓每一次的批價與掛號<br/>
+                        都感受<span class="text-teal-600">溫馨與關懷</span>
+                    </h1>
+                    <p class="text-slate-600 text-base sm:text-lg max-w-2xl mx-auto lg:mx-0 font-normal leading-relaxed">
+                        歡迎來到佳里奇美醫院醫療服務組櫃台。我們致力於提供便捷流暢的結帳、掛號及各項醫療證明申請服務。提供多款智慧多元支付與自動繳費機指引，減少您寶貴的等候時間。
+                    </p>
+
+                    <!-- Fast Stat Badges -->
+                    <div class="pt-4 grid grid-cols-3 gap-3 max-w-lg mx-auto lg:mx-0">
+                        <div class="bg-white/80 backdrop-blur p-3 sm:p-4 rounded-2xl border border-teal-100 text-center shadow-sm">
+                            <div class="text-xl sm:text-2xl font-bold text-teal-600">8 門櫃台</div>
+                            <div class="text-xs text-slate-500 mt-0.5">全時段分流服務</div>
+                        </div>
+                        <div class="bg-white/80 backdrop-blur p-3 sm:p-4 rounded-2xl border border-sky-100 text-center shadow-sm">
+                            <div class="text-xl sm:text-2xl font-bold text-sky-600">&lt; 5 分鐘</div>
+                            <div class="text-xs text-slate-500 mt-0.5">平均臨櫃辦理時間</div>
+                        </div>
+                        <div class="bg-white/80 backdrop-blur p-3 sm:p-4 rounded-2xl border border-teal-100 text-center shadow-sm">
+                            <div class="text-xl sm:text-2xl font-bold text-teal-600">100%</div>
+                            <div class="text-xs text-slate-500 mt-0.5">支援行動與刷卡支付</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hero Right Card: Quick Location & Hours -->
+                <div class="lg:col-span-5">
+                    <div class="bg-white rounded-3xl p-6 sm:p-8 card-shadow border border-teal-50/80 relative">
+                        <div class="flex items-center justify-between pb-4 border-b border-slate-100">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-10 h-10 rounded-xl bg-teal-50 text-teal-600 flex items-center justify-center font-bold">
+                                    <i class="fa-solid fa-clock-rotate-left"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-bold text-slate-800">櫃台服務時間</h3>
+                                    <p class="text-xs text-slate-500">一樓醫療大廳核心區</p>
+                                </div>
+                            </div>
+                            <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800">
+                                <span class="w-2 h-2 rounded-full bg-emerald-500 mr-1.5 animate-ping"></span>
+                                現在服務中
+                            </span>
+                        </div>
+
+                        <ul class="mt-4 space-y-3.5 text-xs sm:text-sm">
+                            <li class="flex justify-between items-center py-1">
+                                <span class="text-slate-500 flex items-center"><i class="fa-solid fa-sun text-amber-500 w-5"></i> 門診批價 (平日)</span>
+                                <span class="font-semibold text-slate-700">07:30 - 21:30</span>
+                            </li>
+                            <li class="flex justify-between items-center py-1">
+                                <span class="text-slate-500 flex items-center"><i class="fa-solid fa-cloud-sun text-sky-500 w-5"></i> 門診批價 (週六)</span>
+                                <span class="font-semibold text-slate-700">07:30 - 12:30</span>
+                            </li>
+                            <li class="flex justify-between items-center py-1 bg-red-50/60 p-2 rounded-xl text-red-900">
+                                <span class="text-red-700 font-medium flex items-center"><i class="fa-solid fa-truck-medical text-red-500 w-5"></i> 急診專用櫃台</span>
+                                <span class="font-bold text-red-600">24 小時 全天候</span>
+                            </li>
+                            <li class="flex justify-between items-center py-1">
+                                <span class="text-slate-500 flex items-center"><i class="fa-solid fa-bed text-indigo-500 w-5"></i> 住院出納處</span>
+                                <span class="font-semibold text-slate-700">08:00 - 17:30</span>
+                            </li>
+                        </ul>
+
+                        <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
+                            <span class="flex items-center"><i class="fa-solid fa-phone text-teal-500 mr-1.5"></i> 櫃台總機：(06) 726-3333 轉 醫療服務組</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Document Checklist Section -->
+    <section id="doc-checker" class="py-16 bg-white relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <span class="text-teal-600 font-semibold text-sm tracking-wide uppercase">貼心助手</span>
+                <h2 class="text-2xl sm:text-3xl font-bold text-slate-800 mt-1">臨櫃辦理「證件準備小幫手」</h2>
+                <p class="text-slate-500 text-sm sm:text-base mt-2">出門前查一下，減少補件往返時間！選擇您今天預計辦理的業務：</p>
+            </div>
+
+            <!-- Service Selector Tabs -->
+            <div class="bg-slate-50 p-2 rounded-2xl max-w-4xl mx-auto flex flex-wrap justify-center gap-2 mb-8 border border-slate-200/80">
+                <button onclick="switchDocTab('opd')" id="tab-opd" class="doc-tab-btn active-tab px-4 py-2.5 rounded-xl font-medium text-xs sm:text-sm transition-all duration-200 flex items-center space-x-2">
+                    <i class="fa-solid fa-hospital-user"></i>
+                    <span>門診批價/掛號</span>
+                </button>
+                <button onclick="switchDocTab('records')" id="tab-records" class="doc-tab-btn px-4 py-2.5 rounded-xl font-medium text-xs sm:text-sm text-slate-600 hover:text-teal-600 transition-all duration-200 flex items-center space-x-2">
+                    <i class="fa-solid fa-file-medical"></i>
+                    <span>申請診斷書 / 病歷</span>
+                </button>
+                <button onclick="switchDocTab('refund')" id="tab-refund" class="doc-tab-btn px-4 py-2.5 rounded-xl font-medium text-xs sm:text-sm text-slate-600 hover:text-teal-600 transition-all duration-200 flex items-center space-x-2">
+                    <i class="fa-solid fa-hand-holding-dollar"></i>
+                    <span>健保卡補刷退費</span>
+                </button>
+                <button onclick="switchDocTab('catastrophic')" id="tab-catastrophic" class="doc-tab-btn px-4 py-2.5 rounded-xl font-medium text-xs sm:text-sm text-slate-600 hover:text-teal-600 transition-all duration-200 flex items-center space-x-2">
+                    <i class="fa-solid fa-id-card"></i>
+                    <span>重大傷病註記</span>
+                </button>
+            </div>
+
+            <!-- Tab Content Display Card -->
+            <div class="max-w-4xl mx-auto bg-teal-50/40 border border-teal-100 rounded-3xl p-6 sm:p-8 card-shadow">
+                <!-- OPD / Normal Billing -->
+                <div id="content-opd" class="doc-tab-content space-y-6">
+                    <div class="flex items-center space-x-3 text-teal-800">
+                        <i class="fa-solid fa-circle-check text-xl text-teal-600"></i>
+                        <h3 class="text-lg font-bold">一般門診批價繳費 / 初複診掛號</h3>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-white p-4 rounded-2xl border border-teal-100/80 shadow-sm flex items-start space-x-3">
+                            <div class="w-8 h-8 rounded-lg bg-teal-100 text-teal-700 flex items-center justify-center font-bold text-sm shrink-0">1</div>
+                            <div>
+                                <h4 class="font-bold text-slate-800 text-sm">全民健康保險卡 (健保卡)</h4>
+                                <p class="text-xs text-slate-500 mt-1">需具備清晰照片與晶片功能。無照片者需附附照片身分證件。</p>
+                            </div>
+                        </div>
+                        <div class="bg-white p-4 rounded-2xl border border-teal-100/80 shadow-sm flex items-start space-x-3">
+                            <div class="w-8 h-8 rounded-lg bg-teal-100 text-teal-700 flex items-center justify-center font-bold text-sm shrink-0">2</div>
+                            <div>
+                                <h4 class="font-bold text-slate-800 text-sm">優惠減免證明 (若適用)</h4>
+                                <p class="text-xs text-slate-500 mt-1">如：身心障礙證明、榮民證、福保證明、高齡長者優惠註記等。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Medical Records Application -->
+                <div id="content-records" class="doc-tab-content hidden space-y-6">
+                    <div class="flex items-center space-x-3 text-teal-800">
+                        <i class="fa-solid fa-file-signature text-xl text-teal-600"></i>
+                        <h3 class="text-lg font-bold">病歷複製本 / 診斷證明書申請</h3>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-white p-4 rounded-2xl border border-teal-100/80 shadow-sm flex items-start space-x-3">
+                            <div class="w-8 h-8 rounded-lg bg-sky-100 text-sky-700 flex items-center justify-center font-bold text-sm shrink-0">本人</div>
+                            <div>
+                                <h4 class="font-bold text-slate-800 text-sm">病人本人親辦</h4>
+                                <p class="text-xs text-slate-500 mt-1">1. 病人身分證正本 (身分證/駕照/護照)<br/>2. 健保卡</p>
+                            </div>
+                        </div>
+                        <div class="bg-white p-4 rounded-2xl border border-teal-100/80 shadow-sm flex items-start space-x-3">
+                            <div class="w-8 h-8 rounded-lg bg-sky-100 text-sky-700 flex items-center justify-center font-bold text-sm shrink-0">代理</div>
+                            <div>
+                                <h4 class="font-bold text-slate-800 text-sm">家屬或代理人受託代辦</h4>
+                                <p class="text-xs text-slate-500 mt-1">1. 病人及代理人雙方身分證正本<br/>2. 病人親簽之「病歷資料申請委託同意書」</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-3 bg-amber-50 border border-amber-200 rounded-xl text-amber-800 text-xs flex items-center space-x-2">
+                        <i class="fa-solid fa-circle-info text-amber-600"></i>
+                        <span>未成年人申辦需由法定代理人檢附戶口名簿正本與代理人身分證。</span>
+                    </div>
+                </div>
+
+                <!-- Refund -->
+                <div id="content-refund" class="doc-tab-content hidden space-y-6">
+                    <div class="flex items-center space-x-3 text-teal-800">
+                        <i class="fa-solid fa-receipt text-xl text-teal-600"></i>
+                        <h3 class="text-lg font-bold">未帶健保卡 (押金) 補刷退費</h3>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="bg-white p-4 rounded-2xl border border-teal-100/80 shadow-sm text-center">
+                            <i class="fa-regular fa-id-card text-2xl text-teal-600 mb-2"></i>
+                            <h4 class="font-bold text-slate-800 text-sm">健保卡正本</h4>
+                            <p class="text-xs text-slate-500 mt-1">需確認晶片可正常讀取</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-2xl border border-teal-100/80 shadow-sm text-center">
+                            <i class="fa-solid fa-receipt text-2xl text-teal-600 mb-2"></i>
+                            <h4 class="font-bold text-slate-800 text-sm">原就醫醫療收據正本</h4>
+                            <p class="text-xs text-slate-500 mt-1">當時自費押金收據</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-2xl border border-teal-100/80 shadow-sm text-center">
+                            <i class="fa-regular fa-clock text-2xl text-teal-600 mb-2"></i>
+                            <h4 class="font-bold text-slate-800 text-sm">辦理期限</h4>
+                            <p class="text-xs text-slate-500 mt-1">就醫日起 7 日內 (含假日)</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Catastrophic Illness -->
+                <div id="content-catastrophic" class="doc-tab-content hidden space-y-6">
+                    <div class="flex items-center space-x-3 text-teal-800">
+                        <i class="fa-solid fa-notes-medical text-xl text-teal-600"></i>
+                        <h3 class="text-lg font-bold">重大傷病證明 / 身心障礙優惠註記</h3>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-white p-4 rounded-2xl border border-teal-100/80 shadow-sm flex items-start space-x-3">
+                            <div class="w-8 h-8 rounded-lg bg-teal-100 text-teal-700 flex items-center justify-center font-bold text-sm shrink-0">1</div>
+                            <div>
+                                <h4 class="font-bold text-slate-800 text-sm">醫師診斷證明書與申請表</h4>
+                                <p class="text-xs text-slate-500 mt-1">由主治醫師開立並加蓋醫院關防之重大傷病申請書。</p>
+                            </div>
+                        </div>
+                        <div class="bg-white p-4 rounded-2xl border border-teal-100/80 shadow-sm flex items-start space-x-3">
+                            <div class="w-8 h-8 rounded-lg bg-teal-100 text-teal-700 flex items-center justify-center font-bold text-sm shrink-0">2</div>
+                            <div>
+                                <h4 class="font-bold text-slate-800 text-sm">健保卡與身分證明</h4>
+                                <p class="text-xs text-slate-500 mt-1">至櫃台完成健保卡註記更新，即可享有就醫部分負擔減免。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Google Apps Script Online Booking & Form Section -->
+    <section id="booking" class="py-16 bg-slate-50 border-t border-b border-teal-100/60">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-10">
+                <span class="text-teal-600 font-semibold text-sm tracking-wide uppercase">雲端連線服務</span>
+                <h2 class="text-2xl sm:text-3xl font-bold text-slate-800 mt-1">臨櫃諮詢與預約登記表單</h2>
+                <p class="text-slate-500 text-sm sm:text-base mt-2">填寫您的基本資料，資料將自動寫入雲端 Excel 試算表，方便櫃台人員提前備妥相關資料！</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start max-w-5xl mx-auto">
+                <!-- Registration Form -->
+                <div class="lg:col-span-7 bg-white rounded-3xl p-6 sm:p-8 card-shadow border border-teal-100">
+                    <form id="gas-form" onsubmit="submitToAppsScript(event)" class="space-y-5">
+                        <div>
+                            <label for="user-name" class="block text-xs font-bold text-slate-700 mb-1.5">
+                                姓名 <span class="text-red-500">*</span>
+                            </label>
+                            <div class="relative">
+                                <i class="fa-regular fa-user absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+                                <input type="text" id="user-name" required placeholder="請輸入看診或辦理人姓名" class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 text-sm">
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label for="user-phone" class="block text-xs font-bold text-slate-700 mb-1.5">
+                                    聯絡電話 <span class="text-red-500">*</span>
+                                </label>
+                                <div class="relative">
+                                    <i class="fa-solid fa-phone absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+                                    <input type="tel" id="user-phone" required placeholder="例如：0912345678" class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 text-sm">
+                                </div>
+                            </div>
+                            <div>
+                                <label for="service-type" class="block text-xs font-bold text-slate-700 mb-1.5">
+                                    預計辦理項目 <span class="text-red-500">*</span>
+                                </label>
+                                <div class="relative">
+                                    <i class="fa-solid fa-list-check absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+                                    <select id="service-type" required class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 text-sm bg-white text-slate-700">
+                                        <option value="門診批價/掛號">門診批價 / 掛號</option>
+                                        <option value="診斷證明/病歷複製">診斷證明 / 病歷複製</option>
+                                        <option value="健保卡補刷退費">健保卡補刷退費</option>
+                                        <option value="重大傷病/優惠註記">重大傷病 / 優惠註記</option>
+                                        <option value="住院手續辦理">住院手續辦理</option>
+                                        <option value="其他臨櫃諮詢">其他臨櫃諮詢</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="user-note" class="block text-xs font-bold text-slate-700 mb-1.5">備註 / 諮詢內容</label>
+                            <textarea id="user-note" rows="3" placeholder="如有特定需求（如：申請哪一位醫師診斷書、預計臨櫃時間等）可在此說明..." class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 text-sm"></textarea>
+                        </div>
+
+                        <!-- Apps Script API Endpoint Configuration -->
+                        <div class="pt-2 border-t border-slate-100">
+                            <div class="flex items-center justify-between mb-1.5">
+                                <label for="gas-url" class="text-[11px] font-bold text-slate-500 flex items-center">
+                                    <i class="fa-solid fa-link text-teal-600 mr-1"></i> Google Apps Script Web App 網址
+                                </label>
+                                <button type="button" onclick="toggleGasGuide()" class="text-[11px] text-teal-600 hover:underline font-medium">
+                                    如何設定 Google Sheet？
+                                </button>
+                            </div>
+                            <input type="url" id="gas-url" placeholder="https://script.google.com/macros/s/.../exec" class="w-full px-3 py-2 rounded-lg border border-slate-200 text-xs text-slate-600 focus:outline-none focus:border-teal-500 bg-slate-50">
+                        </div>
+
+                        <button type="submit" id="submit-btn" class="w-full py-3 px-6 rounded-xl bg-teal-600 hover:bg-teal-700 text-white font-bold text-sm transition-all shadow-md shadow-teal-600/20 flex items-center justify-center space-x-2">
+                            <i class="fa-solid fa-paper-plane"></i>
+                            <span>送出資料至雲端 Excel</span>
+                        </button>
+                    </form>
+
+                    <!-- Alert message container -->
+                    <div id="form-alert" class="hidden mt-4 p-3 rounded-xl text-xs font-medium"></div>
+                </div>
+
+                <!-- Google Apps Script Setup Guide Accordion/Card -->
+                <div id="gas-guide-card" class="lg:col-span-5 bg-teal-900 text-white p-6 rounded-3xl shadow-lg border border-teal-800 space-y-4">
+                    <div class="flex items-center justify-between pb-3 border-b border-teal-800">
+                        <div class="flex items-center space-x-2">
+                            <i class="fa-solid fa-file-excel text-emerald-400 text-lg"></i>
+                            <h3 class="font-bold text-sm">Google 試算表串接指南</h3>
+                        </div>
+                        <span class="text-[10px] bg-teal-800 text-teal-200 px-2 py-0.5 rounded-full">Apps Script</span>
+                    </div>
+
+                    <ol class="text-xs text-teal-100 space-y-2.5 list-decimal pl-4 leading-relaxed">
+                        <li>在 Google 雲端硬碟新建一個 <strong>Google 試算表</strong>。</li>
+                        <li>首行填寫欄位標題：<br/><code class="bg-teal-950 px-1.5 py-0.5 rounded text-teal-300">時間 | 姓名 | 電話 | 辦理項目 | 備註</code></li>
+                        <li>點選上方選單 <strong>「擴充功能」 &gt; 「Apps Script」</strong>。</li>
+                        <li>貼上右下方程式碼並儲存。</li>
+                        <li>點選右上角 <strong>「部署」 &gt; 「新增部署」</strong>：
+                            <ul class="list-disc pl-4 mt-1 space-y-0.5 text-teal-200">
+                                <li>類型選擇：<strong>Web 應用程式</strong></li>
+                                <li>誰可以存取：<strong>所有人 (Anyone)</strong></li>
+                            </ul>
+                        </li>
+                        <li>複製部署後的網址，貼至左側表單網址欄位即可！</li>
+                    </ol>
+
+                    <div class="pt-2">
+                        <div class="flex items-center justify-between text-xs text-teal-200 mb-1">
+                            <span class="font-bold">Google Apps Script 程式碼：</span>
+                            <button onclick="copyGasCode()" class="text-[11px] bg-teal-700 hover:bg-teal-600 text-white px-2 py-1 rounded transition-colors flex items-center space-x-1">
+                                <i class="fa-regular fa-copy"></i>
+                                <span id="copy-text">複製程式碼</span>
+                            </button>
+                        </div>
+                        <pre id="gas-code" class="bg-slate-950 p-3 rounded-xl text-[11px] font-mono text-teal-300 overflow-x-auto border border-teal-800/80 leading-relaxed max-h-48"><code>function doPost(e) {
+  try {
+    var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+    var data = JSON.parse(e.postData.contents);
+    
+    sheet.appendRow([
+      new Date(),
+      data.name,
+      data.phone,
+      data.service,
+      data.note
+    ]);
+    
+    return ContentService.createTextOutput(
+      JSON.stringify({ "result": "success" })
+    ).setMimeType(ContentService.MimeType.JSON);
+  } catch (err) {
+    return ContentService.createTextOutput(
+      JSON.stringify({ "result": "error", "error": err.toString() })
+    ).setMimeType(ContentService.MimeType.JSON);
+  }
+}</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Core Services Grid -->
+    <section id="services" class="py-16 bg-slate-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <span class="text-teal-600 font-semibold text-sm tracking-wide uppercase">服務範疇</span>
+                <h2 class="text-2xl sm:text-3xl font-bold text-slate-800 mt-1">批價櫃台服務項目</h2>
+                <p class="text-slate-500 text-sm sm:text-base mt-2">我們提供一站式的醫療行政支援，為您節省寶貴時間。</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+                <!-- Card 1 -->
+                <div class="bg-white p-6 rounded-3xl card-shadow border border-slate-100 hover:-translate-y-1 transition-all duration-300">
+                    <div class="w-12 h-12 rounded-2xl bg-teal-50 text-teal-600 flex items-center justify-center text-xl font-bold mb-4">
+                        <i class="fa-solid fa-cash-register"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-800 mb-2">門診/急診 批價繳費</h3>
+                    <p class="text-slate-500 text-xs sm:text-sm leading-relaxed mb-4">
+                        協助就診後的醫療費用結算、列印醫療費用明細與繳費收據，並引導至藥局領藥。
+                    </p>
+                    <span class="inline-flex items-center text-xs text-teal-600 font-semibold">
+                        <i class="fa-solid fa-check mr-1.5"></i> 支援多元支付與自動繳費
+                    </span>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="bg-white p-6 rounded-3xl card-shadow border border-slate-100 hover:-translate-y-1 transition-all duration-300">
+                    <div class="w-12 h-12 rounded-2xl bg-sky-50 text-sky-600 flex items-center justify-center text-xl font-bold mb-4">
+                        <i class="fa-solid fa-calendar-check"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-800 mb-2">現場掛號與預約諮詢</h3>
+                    <p class="text-slate-500 text-xs sm:text-sm leading-relaxed mb-4">
+                        辦理當日現場門診掛號、當日釋出名額查詢，以及未來四週內的各科預約看診服務。
+                    </p>
+                    <span class="inline-flex items-center text-xs text-sky-600 font-semibold">
+                        <i class="fa-solid fa-check mr-1.5"></i> 初診/複診皆可協助
+                    </span>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="bg-white p-6 rounded-3xl card-shadow border border-slate-100 hover:-translate-y-1 transition-all duration-300">
+                    <div class="w-12 h-12 rounded-2xl bg-teal-50 text-teal-600 flex items-center justify-center text-xl font-bold mb-4">
+                        <i class="fa-solid fa-file-lines"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-800 mb-2">各類醫療證明申請</h3>
+                    <p class="text-slate-500 text-xs sm:text-sm leading-relaxed mb-4">
+                        受理診斷證明書、出生/死亡證明、疾病用藥明細及收據補發申請與蓋章驗證。
+                    </p>
+                    <span class="inline-flex items-center text-xs text-teal-600 font-semibold">
+                        <i class="fa-solid fa-check mr-1.5"></i> 提供臨櫃加蓋關防
+                    </span>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="bg-white p-6 rounded-3xl card-shadow border border-slate-100 hover:-translate-y-1 transition-all duration-300">
+                    <div class="w-12 h-12 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-xl font-bold mb-4">
+                        <i class="fa-solid fa-bed-pulse"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-800 mb-2">住院手續與費用出納</h3>
+                    <p class="text-slate-500 text-xs sm:text-sm leading-relaxed mb-4">
+                        辦理住院登記、繳納住院保證金/預付金、出院結帳手續與住院診斷書核發。
+                    </p>
+                    <span class="inline-flex items-center text-xs text-indigo-600 font-semibold">
+                        <i class="fa-solid fa-check mr-1.5"></i> 專屬出納櫃台辦理
+                    </span>
+                </div>
+
+                <!-- Card 5 -->
+                <div class="bg-white p-6 rounded-3xl card-shadow border border-slate-100 hover:-translate-y-1 transition-all duration-300">
+                    <div class="w-12 h-12 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center text-xl font-bold mb-4">
+                        <i class="fa-solid fa-handshake-angle"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-800 mb-2">健保身分註記與補助</h3>
+                    <p class="text-slate-500 text-xs sm:text-sm leading-relaxed mb-4">
+                        重大傷病卡註記更新、身心障礙補助、榮民身分優惠、孕婦與幼兒部分負擔減免。
+                    </p>
+                    <span class="inline-flex items-center text-xs text-amber-600 font-semibold">
+                        <i class="fa-solid fa-check mr-1.5"></i> 權益維護與即時連線
+                    </span>
+                </div>
+
+                <!-- Card 6 -->
+                <div class="bg-white p-6 rounded-3xl card-shadow border border-slate-100 hover:-translate-y-1 transition-all duration-300">
+                    <div class="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl font-bold mb-4">
+                        <i class="fa-solid fa-rotate-left"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-800 mb-2">補刷卡退費與退費核銷</h3>
+                    <p class="text-slate-500 text-xs sm:text-sm leading-relaxed mb-4">
+                        未帶健保卡就醫之押金退款辦理、未執行檢查項目之退費作業與相關諮詢。
+                    </p>
+                    <span class="inline-flex items-center text-xs text-emerald-600 font-semibold">
+                        <i class="fa-solid fa-check mr-1.5"></i> 憑收據與健保卡快速退款
+                    </span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Live Queue & Counter Simulator -->
+    <section id="live-queue" class="py-16 bg-white border-t border-slate-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-gradient-to-br from-slate-900 to-teal-950 text-white rounded-3xl p-6 sm:p-10 shadow-2xl relative overflow-hidden">
+                <!-- Glowing background graphics -->
+                <div class="absolute top-0 right-0 w-96 h-96 bg-teal-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+                <div class="flex flex-col md:flex-row md:items-center justify-between pb-8 border-b border-slate-800 gap-4">
+                    <div>
+                        <div class="flex items-center space-x-2 text-teal-400 text-xs font-semibold uppercase tracking-wider mb-1">
+                            <span class="w-2 h-2 rounded-full bg-teal-400 animate-ping"></span>
+                            <span>Live Display</span>
+                        </div>
+                        <h2 class="text-2xl sm:text-3xl font-bold">1F 大廳批價櫃台叫號進度</h2>
+                        <p class="text-slate-400 text-xs sm:text-sm mt-1">每 10 秒自動同步最新叫號資訊 (動態模擬)</p>
+                    </div>
+
+                    <div class="flex items-center space-x-3">
+                        <button onclick="refreshQueueNumbers()" class="px-4 py-2 bg-teal-600/80 hover:bg-teal-500 text-white rounded-xl text-xs sm:text-sm font-medium transition-all flex items-center space-x-2">
+                            <i class="fa-solid fa-arrows-rotate" id="refresh-icon"></i>
+                            <span>刷新叫號</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Live Counter Numbers Grid -->
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-8" id="queue-grid">
+                    <!-- Counter 1 -->
+                    <div class="bg-slate-800/80 rounded-2xl p-4 border border-slate-700/80 text-center">
+                        <div class="text-xs text-slate-400 mb-1">櫃台 01 (綜合批價)</div>
+                        <div class="text-3xl sm:text-4xl font-extrabold text-teal-400 tracking-wider font-mono queue-num" data-counter="1">1042</div>
+                        <div class="mt-2 text-[11px] text-emerald-400 bg-emerald-500/10 py-1 px-2 rounded-full inline-block">服務中</div>
+                    </div>
+                    <!-- Counter 2 -->
+                    <div class="bg-slate-800/80 rounded-2xl p-4 border border-slate-700/80 text-center">
+                        <div class="text-xs text-slate-400 mb-1">櫃台 02 (綜合批價)</div>
+                        <div class="text-3xl sm:text-4xl font-extrabold text-teal-400 tracking-wider font-mono queue-num" data-counter="2">1043</div>
+                        <div class="mt-2 text-[11px] text-emerald-400 bg-emerald-500/10 py-1 px-2 rounded-full inline-block">服務中</div>
+                    </div>
+                    <!-- Counter 3 -->
+                    <div class="bg-slate-800/80 rounded-2xl p-4 border border-slate-700/80 text-center">
+                        <div class="text-xs text-slate-400 mb-1">櫃台 03 (博愛/優先)</div>
+                        <div class="text-3xl sm:text-4xl font-extrabold text-sky-400 tracking-wider font-mono queue-num" data-counter="3">8015</div>
+                        <div class="mt-2 text-[11px] text-sky-400 bg-sky-500/10 py-1 px-2 rounded-full inline-block">高齡敬老優先</div>
+                    </div>
+                    <!-- Counter 4 -->
+                    <div class="bg-slate-800/80 rounded-2xl p-4 border border-slate-700/80 text-center">
+                        <div class="text-xs text-slate-400 mb-1">櫃台 04 (病歷證明)</div>
+                        <div class="text-3xl sm:text-4xl font-extrabold text-amber-400 tracking-wider font-mono queue-num" data-counter="4">3012</div>
+                        <div class="mt-2 text-[11px] text-amber-400 bg-amber-500/10 py-1 px-2 rounded-full inline-block">證明專用</div>
+                    </div>
+                </div>
+
+                <!-- Simulation Ticket Helper -->
+                <div class="mt-8 pt-6 border-t border-slate-800/80 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-400 gap-4">
+                    <div class="flex items-center space-x-2">
+                        <i class="fa-solid fa-circle-question text-teal-400"></i>
+                        <span>等待人數過多？推薦前往 <strong class="text-white">一樓自動繳費機</strong> 辦理，免排隊！</span>
+                    </div>
+                    <div class="text-slate-400">
+                        預估平均候號時間：<strong class="text-teal-400">3 ~ 6 分鐘</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Payment Methods Section -->
+    <section id="payment" class="py-16 bg-slate-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <span class="text-teal-600 font-semibold text-sm tracking-wide uppercase">多元便捷</span>
+                <h2 class="text-2xl sm:text-3xl font-bold text-slate-800 mt-1">多元繳費方式介紹</h2>
+                <p class="text-slate-500 text-sm sm:text-base mt-2">提供多種支付途徑，零錢或手機都能輕鬆結帳。</p>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
+                <!-- Payment 1 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200/60 shadow-sm text-center hover:shadow-md transition-shadow">
+                    <div class="w-12 h-12 mx-auto rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-xl mb-3">
+                        <i class="fa-solid fa-money-bill-wave"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-800 text-sm sm:text-base">現金支付</h3>
+                    <p class="text-xs text-slate-500 mt-1">臨櫃支援各面額紙鈔與硬幣找零</p>
+                </div>
+
+                <!-- Payment 2 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200/60 shadow-sm text-center hover:shadow-md transition-shadow">
+                    <div class="w-12 h-12 mx-auto rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-xl mb-3">
+                        <i class="fa-regular fa-credit-card"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-800 text-sm sm:text-base">信用卡 / 簽帳卡</h3>
+                    <p class="text-xs text-slate-500 mt-1">支援 Visa, MasterCard, JCB, 銀聯</p>
+                </div>
+
+                <!-- Payment 3 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200/60 shadow-sm text-center hover:shadow-md transition-shadow">
+                    <div class="w-12 h-12 mx-auto rounded-full bg-teal-100 text-teal-600 flex items-center justify-center text-xl mb-3">
+                        <i class="fa-solid fa-mobile-screen-button"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-800 text-sm sm:text-base">行動支付</h3>
+                    <p class="text-xs text-slate-500 mt-1">Apple Pay, Google Pay, Line Pay, 街口</p>
+                </div>
+
+                <!-- Payment 4 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200/60 shadow-sm text-center hover:shadow-md transition-shadow">
+                    <div class="w-12 h-12 mx-auto rounded-full bg-purple-100 text-purple-600 flex items-center justify-center text-xl mb-3">
+                        <i class="fa-solid fa-robot"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-800 text-sm sm:text-base">自助繳費機</h3>
+                    <p class="text-xs text-slate-500 mt-1">大廳設置 4 台，掃描條碼 30 秒完款</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="py-16 bg-white">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <span class="text-teal-600 font-semibold text-sm tracking-wide uppercase">疑問解答</span>
+                <h2 class="text-2xl sm:text-3xl font-bold text-slate-800 mt-1">批價臨櫃常見問題 FAQ</h2>
+                <p class="text-slate-500 text-sm sm:text-base mt-2">為您整理臨櫃最常被詢問的問題，點選即可展開解答。</p>
+            </div>
+
+            <!-- Search Filter Bar -->
+            <div class="relative mb-8">
+                <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                <input type="text" id="faq-search" oninput="filterFaq()" placeholder="搜尋關鍵字（例如：退費、證明書、忘記帶健保卡...）" class="w-full pl-11 pr-4 py-3.5 rounded-2xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 text-sm transition-all shadow-sm">
+            </div>
+
+            <!-- Accordion Items -->
+            <div class="space-y-4" id="faq-list">
+                <!-- Item 1 -->
+                <div class="faq-item border border-slate-200/80 rounded-2xl overflow-hidden transition-all">
+                    <button onclick="toggleFaq(this)" class="w-full p-5 text-left font-bold text-slate-800 text-sm sm:text-base flex justify-between items-center bg-slate-50/50 hover:bg-teal-50/30 transition-colors">
+                        <span class="faq-title">Q1. 就醫看診時忘記帶健保卡該怎麼辦？</span>
+                        <i class="fa-solid fa-chevron-down text-slate-400 text-xs transition-transform duration-200"></i>
+                    </button>
+                    <div class="faq-answer hidden p-5 border-t border-slate-100 text-xs sm:text-sm text-slate-600 leading-relaxed bg-white">
+                        若看診當天未帶健保卡，當日需先以「全額自費」押金方式完成批價取藥。請於就醫日起 <strong class="text-teal-700">7 日內（包含例假日）</strong>，攜帶【健保卡正本】及【當日醫療收據正本】至一樓批價櫃台辦理退費補刷手續。
+                    </div>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="faq-item border border-slate-200/80 rounded-2xl overflow-hidden transition-all">
+                    <button onclick="toggleFaq(this)" class="w-full p-5 text-left font-bold text-slate-800 text-sm sm:text-base flex justify-between items-center bg-slate-50/50 hover:bg-teal-50/30 transition-colors">
+                        <span class="faq-title">Q2. 診斷證明書看診當天可以當場拿到嗎？費用是多少？</span>
+                        <i class="fa-solid fa-chevron-down text-slate-400 text-xs transition-transform duration-200"></i>
+                    </button>
+                    <div class="faq-answer hidden p-5 border-t border-slate-100 text-xs sm:text-sm text-slate-600 leading-relaxed bg-white">
+                        看診時向醫師提出需求，經醫師開立後，拿門診單至批價櫃台繳費並加蓋醫院印鑑章，當天即可取得。一般中文診斷證明書首份為 150 元，加印每份 20 元（英文診斷書一份 200 元）。
+                    </div>
+                </div>
+
+                <!-- Item 3 -->
+                <div class="faq-item border border-slate-200/80 rounded-2xl overflow-hidden transition-all">
+                    <button onclick="toggleFaq(this)" class="w-full p-5 text-left font-bold text-slate-800 text-sm sm:text-base flex justify-between items-center bg-slate-50/50 hover:bg-teal-50/30 transition-colors">
+                        <span class="faq-title">Q3. 家人可以幫忙代領病歷複製本或診斷證明嗎？</span>
+                        <i class="fa-solid fa-chevron-down text-slate-400 text-xs transition-transform duration-200"></i>
+                    </button>
+                    <div class="faq-answer hidden p-5 border-t border-slate-100 text-xs sm:text-sm text-slate-600 leading-relaxed bg-white">
+                        可以。為保護個人醫療隱私，代理人請務必攜帶：
+                        <ul class="list-disc pl-5 mt-2 space-y-1">
+                            <li>病人本人之身分證正本</li>
+                            <li>代理人本人之身分證正本</li>
+                            <li>病人親筆簽名之「病歷資料委託同意書」</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Item 4 -->
+                <div class="faq-item border border-slate-200/80 rounded-2xl overflow-hidden transition-all">
+                    <button onclick="toggleFaq(this)" class="w-full p-5 text-left font-bold text-slate-800 text-sm sm:text-base flex justify-between items-center bg-slate-50/50 hover:bg-teal-50/30 transition-colors">
+                        <span class="faq-title">Q4. 自助繳費機可以支付哪些項目？</span>
+                        <i class="fa-solid fa-chevron-down text-slate-400 text-xs transition-transform duration-200"></i>
+                    </button>
+                    <div class="faq-answer hidden p-5 border-t border-slate-100 text-xs sm:text-sm text-slate-600 leading-relaxed bg-white">
+                        自動繳費機支援一般門診批價繳費（只需掃描藥單或處方箋條碼），並支援信用卡與行動支付感應。若有涉及重大傷病折扣變更、補刷卡退費或需要開立特殊證明書者，則需請至人工櫃台辦理。
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hospital Location & Counter Map Notice Banner -->
+    <section class="py-12 bg-teal-600 text-white relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                <div class="flex items-center space-x-4">
+                    <div class="w-14 h-14 rounded-2xl bg-white/10 backdrop-blur flex items-center justify-center text-2xl shrink-0">
+                        <i class="fa-solid fa-map-location-dot"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold">需要櫃台專人引導嗎？</h3>
+                        <p class="text-teal-100 text-xs sm:text-sm mt-1">一樓大廳設有志工服務台與自動號碼牌機，隨時指引您辦理方向。</p>
+                    </div>
+                </div>
+                <div class="flex space-x-3 w-full md:w-auto justify-end">
+                    <a href="tel:067263333" class="px-5 py-3 rounded-xl bg-white text-teal-700 font-bold text-xs sm:text-sm hover:bg-teal-50 transition-colors shadow-lg shadow-black/10 flex items-center space-x-2">
+                        <i class="fa-solid fa-phone"></i>
+                        <span>電話諮詢 醫療服務組</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 py-12 text-xs sm:text-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 pb-8 border-b border-slate-800">
+                <div>
+                    <div class="flex items-center space-x-2 text-white font-bold text-base mb-3">
+                        <i class="fa-solid fa-hospital-user text-teal-400"></i>
+                        <span>佳里奇美醫院 - 醫療服務組</span>
+                    </div>
+                    <p class="text-slate-400 text-xs leading-relaxed">
+                        用心服務，為每一位就診民眾提供最便捷親切的醫療行政與繳費服務。
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold mb-3">臨櫃位置指引</h4>
+                    <p class="text-slate-400 text-xs leading-relaxed space-y-1">
+                        • 門診批價櫃台：醫療大樓 1 樓大廳右側 (1~6 號窗口)<br/>
+                        • 急診批價櫃台：急診大樓 1 樓 (24 小時)<br/>
+                        • 住院出納櫃台：醫療大樓 1 樓左側 (7~8 號窗口)
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold mb-3">緊急服務電話</h4>
+                    <p class="text-slate-400 text-xs leading-relaxed">
+                        院內總機：(06) 726-3333<br/>
+                        批價諮詢專線：醫療服務組<br/>
+                        病歷申請諮詢：醫療服務組 病歷窗口
+                    </p>
+                </div>
+            </div>
+            <div class="pt-6 text-center text-xs text-slate-500">
+                &copy; 2026 佳里奇美醫院 醫療服務組 (Chimei Hospital Jiali Branch). All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // Mobile Menu Toggle
+        const mobileBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Tab Switching Logic for Document Checklist
+        function switchDocTab(tabName) {
+            // Hide all tab contents
+            const contents = document.querySelectorAll('.doc-tab-content');
+            contents.forEach(el => el.classList.add('hidden'));
+
+            // Remove active style from all buttons
+            const tabs = document.querySelectorAll('.doc-tab-btn');
+            tabs.forEach(btn => {
+                btn.classList.remove('active-tab', 'bg-teal-500', 'text-white', 'shadow-md');
+                btn.classList.add('text-slate-600', 'hover:text-teal-600');
+            });
+
+            // Show target content
+            document.getElementById('content-' + tabName).classList.remove('hidden');
+
+            // Highlight active tab button
+            const activeBtn = document.getElementById('tab-' + tabName);
+            activeBtn.classList.add('active-tab', 'bg-teal-500', 'text-white', 'shadow-md');
+            activeBtn.classList.remove('text-slate-600', 'hover:text-teal-600');
+        }
+
+        // Initialize default tab styling on load
+        document.addEventListener('DOMContentLoaded', () => {
+            const defaultTab = document.getElementById('tab-opd');
+            if (defaultTab) {
+                defaultTab.classList.add('bg-teal-500', 'text-white', 'shadow-md');
+            }
+        });
+
+        // Interactive Live Queue Number Simulator
+        function refreshQueueNumbers() {
+            const refreshIcon = document.getElementById('refresh-icon');
+            if (refreshIcon) refreshIcon.classList.add('animate-spin');
+
+            const nums = document.querySelectorAll('.queue-num');
+            nums.forEach(el => {
+                let currentVal = parseInt(el.textContent);
+                // Increment number randomly by 1 to 3
+                let increment = Math.floor(Math.random() * 3) + 1;
+                el.textContent = currentVal + increment;
+            });
+
+            setTimeout(() => {
+                if (refreshIcon) refreshIcon.classList.remove('animate-spin');
+            }, 600);
+        }
+
+        // Auto Refresh Queue every 12 seconds
+        setInterval(refreshQueueNumbers, 12000);
+
+        // Accordion Toggle Function
+        function toggleFaq(button) {
+            const faqItem = button.parentElement;
+            const answer = faqItem.querySelector('.faq-answer');
+            const icon = button.querySelector('i');
+
+            if (answer.classList.contains('hidden')) {
+                answer.classList.remove('hidden');
+                icon.style.transform = 'rotate(180deg)';
+                faqItem.classList.add('border-teal-300', 'shadow-sm');
+            } else {
+                answer.classList.add('hidden');
+                icon.style.transform = 'rotate(0deg)';
+                faqItem.classList.remove('border-teal-300', 'shadow-sm');
+            }
+        }
+
+        // FAQ Filter / Search Function
+        function filterFaq() {
+            const input = document.getElementById('faq-search').value.toLowerCase();
+            const items = document.querySelectorAll('.faq-item');
+
+            items.forEach(item => {
+                const title = item.querySelector('.faq-title').textContent.toLowerCase();
+                const answer = item.querySelector('.faq-answer').textContent.toLowerCase();
+
+                if (title.includes(input) || answer.includes(input)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        // Toggle Google Apps Script Guide Visibility
+        function toggleGasGuide() {
+            const guide = document.getElementById('gas-guide-card');
+            if (guide) guide.classList.toggle('hidden');
+        }
+
+        // Copy GAS Code to Clipboard
+        function copyGasCode() {
+            const codeText = document.getElementById('gas-code').innerText;
+            const copyBtnText = document.getElementById('copy-text');
+            
+            // Temporary textarea to handle iframe copy
+            const textarea = document.createElement('textarea');
+            textarea.value = codeText;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+
+            if (copyBtnText) copyBtnText.textContent = '已複製成功！';
+            setTimeout(() => {
+                if (copyBtnText) copyBtnText.textContent = '複製程式碼';
+            }, 2000);
+        }
+
+        // Submit Form Data to Google Apps Script
+        function submitToAppsScript(e) {
+            e.preventDefault();
+
+            const name = document.getElementById('user-name').value.trim();
+            const phone = document.getElementById('user-phone').value.trim();
+            const service = document.getElementById('service-type').value;
+            const note = document.getElementById('user-note').value.trim();
+            const gasUrl = document.getElementById('gas-url').value.trim();
+            const alertBox = document.getElementById('form-alert');
+            const submitBtn = document.getElementById('submit-btn');
+
+            if (!gasUrl) {
+                alertBox.className = 'mt-4 p-3 rounded-xl text-xs font-medium bg-amber-100 text-amber-800 border border-amber-200 block';
+                alertBox.innerHTML = '<i class="fa-solid fa-triangle-exclamation mr-1.5"></i>請先填寫 Google Apps Script 部署網址！（可參考右側說明操作）';
+                return;
+            }
+
+            // Save configured URL to localStorage
+            localStorage.setItem('hospital_gas_url', gasUrl);
+
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fa-solid fa-spinner animate-spin"></i><span>資料傳送中...</span>';
+
+            const payload = {
+                name: name,
+                phone: phone,
+                service: service,
+                note: note
+            };
+
+            // Using no-cors mode for Google Apps Script Web Apps to prevent CORS blockage
+            fetch(gasUrl, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            })
+            .then(() => {
+                alertBox.className = 'mt-4 p-3 rounded-xl text-xs font-medium bg-emerald-100 text-emerald-800 border border-emerald-200 block';
+                alertBox.innerHTML = '<i class="fa-solid fa-circle-check mr-1.5"></i>登記成功！資料已寫入雲端 Excel 試算表。';
+                
+                // Clear input fields
+                document.getElementById('user-name').value = '';
+                document.getElementById('user-phone').value = '';
+                document.getElementById('user-note').value = '';
+            })
+            .catch(error => {
+                alertBox.className = 'mt-4 p-3 rounded-xl text-xs font-medium bg-rose-100 text-rose-800 border border-rose-200 block';
+                alertBox.innerHTML = '<i class="fa-solid fa-circle-xmark mr-1.5"></i>傳送失敗，請檢查網址或連線：' + error;
+            })
+            .finally(() => {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i><span>送出資料至雲端 Excel</span>';
+            });
+        }
+
+        // Load saved GAS URL if available
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedUrl = localStorage.getItem('hospital_gas_url');
+            if (savedUrl) {
+                document.getElementById('gas-url').value = savedUrl;
+            }
+        });
+    </script>
+</body>
+</html>
